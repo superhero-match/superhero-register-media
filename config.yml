@@ -1,0 +1,18 @@
+app:
+  port: ':7000'
+  cert_file: './cmd/media/certificate.pem'
+  key_file: './cmd/media/key.pem'
+  time_format: '2006-01-02T15:04:05'
+
+aws:
+  region: 'us-west-2'
+  superheroes_s3_bucket: 'superheroes-pictures'
+  cdn_url: 'd3pfwtk1dtfl92.cloudfront.net'
+  image_extension: 'jpg'
+  content_type: 'image/jpg'
+  content_encoding: 'base64'
+
+health:
+  port: ':8230'
+  shutdown_endpoint: '/api/v1/superhero_register_media_health/shutdown'
+  content_type: 'application/json'
