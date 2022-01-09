@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2019 - 2021 MWSOFT
+  Copyright (C) 2019 - 2022 MWSOFT
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
@@ -15,8 +15,6 @@ package config
 
 // App holds the configuration values for the application.
 type App struct {
-	Port                string `env:"SUPERHERO_REGISTER_MEDIA_APP_PORT" yaml:"port" default:":7000"`
-	CertFile            string `env:"SUPERHERO_REGISTER_MEDIA_APP_CERT_FILE" yaml:"cert_file" default:"./cmd/media/certificate.pem"`
-	KeyFile             string `env:"SUPERHERO_REGISTER_MEDIA_APP_KEY_FILE" yaml:"key_file" default:"./cmd/media/key.pem"`
-	TimeFormat          string `env:"SUPERHERO_REGISTER_MEDIA_APP_TIME_FORMAT" yaml:"time_format" default:"2006-01-02T15:04:05"`
+	Port       string `env:"SUPERHERO_REGISTER_MEDIA_APP_PORT" yaml:"port" default:":7000"`
+	TimeFormat string `env:"SUPERHERO_REGISTER_MEDIA_APP_TIME_FORMAT" yaml:"time_format" default:"2006-01-02T15:04:05"`
 }

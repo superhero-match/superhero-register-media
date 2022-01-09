@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2019 - 2021 MWSOFT
+  Copyright (C) 2019 - 2022 MWSOFT
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
@@ -14,20 +14,38 @@
 package aws
 
 import (
-	"github.com/aws/aws-sdk-go/aws"
+	a "github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 
 	"github.com/superhero-match/superhero-register-media/internal/config"
 )
 
-// NewSession configures and returns AWS session.
-func NewSession(cfg *config.Config) (*session.Session, error) {
-	s, err := session.NewSession(&aws.Config{
-		Region: aws.String(cfg.Aws.Region),
+// AWS interface defines AWS methods.
+type AWS interface {
+	PutObject(buffer []byte, key string) error
+}
+
+// aws holds all AWS related data.
+type aws struct {
+	Session             *session.Session
+	SuperheroesS3Bucket string
+	ContentEncoding     string
+	ContentType         string
+}
+
+// NewAWS configures and returns AWS.
+func NewAWS(cfg *config.Config) (AWS, error) {
+	s, err := session.NewSession(&a.Config{
+		Region: a.String(cfg.Aws.Region),
 	})
 	if err != nil {
 		return nil, err
 	}
 
-	return s, nil
+	return &aws{
+		Session:             s,
+		SuperheroesS3Bucket: cfg.Aws.SuperheroesS3Bucket,
+		ContentEncoding:     cfg.Aws.ContentEncoding,
+		ContentType:         cfg.Aws.ContentType,
+	}, nil
 }
