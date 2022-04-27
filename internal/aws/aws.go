@@ -11,11 +11,13 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 package aws
 
 import (
 	a "github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/s3"
 
 	"github.com/superhero-match/superhero-register-media/internal/config"
 )
@@ -28,13 +30,15 @@ type AWS interface {
 // aws holds all AWS related data.
 type aws struct {
 	Session             *session.Session
+	Client              *s3.S3
+	putObject           func(pop putObjectParams) error
 	SuperheroesS3Bucket string
 	ContentEncoding     string
 	ContentType         string
 }
 
-// NewAWS configures and returns AWS.
-func NewAWS(cfg *config.Config) (AWS, error) {
+// New configures and returns AWS.
+func New(cfg *config.Config) (AWS, error) {
 	s, err := session.NewSession(&a.Config{
 		Region: a.String(cfg.Aws.Region),
 	})
@@ -44,6 +48,8 @@ func NewAWS(cfg *config.Config) (AWS, error) {
 
 	return &aws{
 		Session:             s,
+		Client:              s3.New(s),
+		putObject:           uploadObjectToS3,
 		SuperheroesS3Bucket: cfg.Aws.SuperheroesS3Bucket,
 		ContentEncoding:     cfg.Aws.ContentEncoding,
 		ContentType:         cfg.Aws.ContentType,

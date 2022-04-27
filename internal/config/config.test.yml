@@ -1,0 +1,11 @@
+app:
+  port: ':7000'
+  time_format: '2006-01-02T15:04:05'
+
+aws:
+  region: 'us-west-2'
+  superheroes_s3_bucket: 'superheroes-pictures'
+  cdn_url: 'd3pfwtk1dtfl92.cloudfront.net'
+  image_extension: 'jpg'
+  content_type: 'image/jpg'
+  content_encoding: 'base64'

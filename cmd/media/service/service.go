@@ -11,6 +11,7 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 package service
 
 import (
@@ -30,12 +31,12 @@ type service struct {
 
 // NewService creates value of type Service.
 func NewService(cfg *config.Config) (Service, error) {
-	aws, err := aws.NewAWS(cfg)
+	a, err := aws.New(cfg)
 	if err != nil {
 		return nil, err
 	}
 
 	return &service{
-		AWS: aws,
+		AWS: a,
 	}, nil
 }

@@ -11,6 +11,7 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 package socketio
 
 import (
@@ -62,10 +63,7 @@ func NewSocketIO(cfg *config.Config) (*SocketIO, error) {
 
 // NewSocketIOServer returns Socket.IO server.
 func (socket *SocketIO) NewSocketIOServer() (*socketio.Server, error) {
-	server, err := socketio.NewServer(nil)
-	if err != nil {
-		return nil, err
-	}
+	server := socketio.NewServer(nil)
 
 	server.OnConnect("/", func(c socketio.Conn) error {
 		log.Println("New client connected")
